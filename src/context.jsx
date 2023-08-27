@@ -55,7 +55,9 @@ const AppContext = ({ children }) => {
 
     const search = (data) => {
         return data.filter((item) =>
-            keys.some((key) => item[key].toString().toLowerCase().includes(query))
+            keys.some((key) =>
+                item[key].toString().toLowerCase().includes(query.toLowerCase())
+            )
         );
     };
 

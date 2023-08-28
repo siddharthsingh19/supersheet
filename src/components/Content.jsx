@@ -7,11 +7,11 @@ const Content = () => {
     useEffect(() => {
         keyFinder();
     }, [items]);
-    console.log(" haan" + checkedValue.length);
+    console.log("content", " checkedvalue.length", checkedValue.length);
 
-    const result = search(items);
-    keys.length > 0 && search(items);
-    console.log(result);
+    const result = search(items, checkedValue);
+    keys.length > 0 && search(items, checkedValue);
+    console.log("result", result);
 
     return (
         <div className="contentContainer">

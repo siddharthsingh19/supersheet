@@ -65,17 +65,39 @@ const AppContext = ({ children }) => {
             setCheckedValue((prev) => {
                 return [...prev.filter((checkedV) => checkedV !== value)];
             });
-        console.log(name, checked);
+        console.log("name" + name, "checked" + checked);
     };
-    console.log(checkedValue, checkedValue.length);
+    console.log(
+        "context",
+        "checkedValue",
+        checkedValue,
+        "length",
+        checkedValue.length
+    );
 
-    const search = (data) => {
-        return data.filter((item) =>
-            keys.some((key) =>
-                item[key].toString().toLowerCase().includes(query.toLowerCase())
-            )
-        );
+    const search = (data, checkedV) => {
+        if (checkedV.length === 0) {
+            return data.filter((item) =>
+                keys.some((key) =>
+                    item[key]
+                        .toString()
+                        .toLowerCase()
+                        .includes(query.toLowerCase())
+                )
+            );
+        } else if (checkedV.length) {
+            return data.filter((item) =>
+                checkedV.some((checkedItem) =>
+                    item[checkedItem]
+                        .toString()
+                        .toLowerCase()
+                        .includes(query.toLowerCase())
+                )
+            );
+        }
     };
+
+    const checkboxFilter = () => {};
 
     return (
         <Context.Provider

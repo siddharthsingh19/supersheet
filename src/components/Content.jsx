@@ -2,13 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../context";
 
 const Content = () => {
-    const { items, query, keyFinder, keys, search } = useContext(Context);
+    const { items, query, keyFinder, keys, search, checkedValue } =
+        useContext(Context);
     useEffect(() => {
         keyFinder();
     }, [items]);
+    console.log(" haan" + checkedValue.length);
 
     const result = search(items);
     keys.length > 0 && search(items);
+    console.log(result);
+
     return (
         <div className="contentContainer">
             <table>
@@ -22,23 +26,10 @@ const Content = () => {
                     )}
                     {result.length > 0 && (
                         <>
-                            {/* {items
-                                .filter((item) =>
-                                    item.Name.toLowerCase().includes(
-                                        query.toLowerCase()
-                                    )
-                                )
-                                .map((item, index) => (
-                                    <tr>
-                                        {keys.map((key) => (
-                                            <td>{item[key ]}</td>
-                                        ))}
-                                    </tr>
-                                ))} */}
-                            {result.map((item) => (
-                                <tr key={item.__rowNum__ + 1000}>
-                                    {keys.map((key) => (
-                                        <td>{item[key]}</td>
+                            {result.map((item, index) => (
+                                <tr key={index}>
+                                    {keys.map((key, index) => (
+                                        <td key={index}>{item[key]}</td>
                                     ))}
                                 </tr>
                             ))}

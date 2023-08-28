@@ -8,6 +8,10 @@ const AppContext = ({ children }) => {
     const [query, setQuery] = useState("");
     const [filedetails, setFileDetails] = useState();
     const [keys, setKeys] = useState("");
+    const [keyChecked, setKeyChecked] = useState(false);
+    const [checkedValue, setCheckedValue] = useState([]);
+    const [formData, setFormData] = useState({});
+
     const readExcel = (file) => {
         const promise = new Promise((resolve, reject) => {
             const fileReader = new FileReader();
@@ -53,6 +57,18 @@ const AppContext = ({ children }) => {
         setKeys(xlsxkeys);
     };
 
+    const handleCheckbox = (e) => {
+        const { name, checked, type, id, value } = e.target;
+        if (checked) {
+            setCheckedValue((prev) => [...prev, value]);
+        } else
+            setCheckedValue((prev) => {
+                return [...prev.filter((checkedV) => checkedV !== value)];
+            });
+        console.log(name, checked);
+    };
+    console.log(checkedValue, checkedValue.length);
+
     const search = (data) => {
         return data.filter((item) =>
             keys.some((key) =>
@@ -76,6 +92,13 @@ const AppContext = ({ children }) => {
                 setKeys,
                 keyFinder,
                 search,
+                keyChecked,
+                setKeyChecked,
+                handleCheckbox,
+                formData,
+                setFormData,
+                checkedValue,
+                setCheckedValue,
             }}
         >
             {children}
